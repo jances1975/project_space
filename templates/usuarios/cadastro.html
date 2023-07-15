@@ -1,0 +1,28 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+            <section class="galeria" style="margin-left: 5em">
+                <form class="" action="{% url 'cadastro' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row formulario" class="col-12 col-lg-12" style="margin-bottom: 5px;">
+                        {% for field in form.visible_fields %}
+                            <div class="inputContainer" style="margin-bottom: 10px; margin-top: 10px;">
+                                <label class="forms__label" for="{{field.id_for_label}}" class="inputText">{{field.label}}</label>
+                                {{field}}
+                            </div>
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    {{error}}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;">Cadastrar</button>
+                    </div>    
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+{% endblock %}

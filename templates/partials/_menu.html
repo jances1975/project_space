@@ -1,0 +1,46 @@
+{% load static %}
+<div class="pagina-inicial">
+    <header class="cabecalho">
+        <style>
+            input {
+                color: white;
+            }
+        </style>
+        <img src="{% static '/assets/logo/Logo(2).png' %}" alt="Logo da Alura Space" />
+
+        {% for message in messages %}
+        <div style="color: aqua;">
+            <p id="message"> {{message}} </p>
+        </div>
+        {% endfor %}
+
+        <div class="cabecalho__busca">
+            <div class="busca__fundo">
+                <form action="{% url 'buscar' %}">
+                    <input class="busca__input" type="text" name="buscar" placeholder="O que você procura?">
+                    <button type="submit">
+                        <img class="busca__icone" src="{% static '/assets/ícones/1x/search.png' %}"
+                            alt="ícone de search">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main class="principal">
+        <section class="menu-lateral">
+            <nav class="menu-lateral__navegacao">
+                <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login
+                </a>
+                {% endif %}
+                <a href="{% url 'cadastro' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Cadastro
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Deslogar</a>
+                <a href="{% url 'nova_imagem' %}"><img src="{% static '/assets/ícones/1x/favorite_outline.png' %}"> Nova imagem </a>
+                <a href="{% url 'deletar_imagem' %}"><img src="{% static '/assets/ícones/1x/favorite_outline.png' %}"> Deletar imagem </a>
+                <a href="{% url 'editar_imagem' %}"><img src="{% static '/assets/ícones/1x/favorite_outline.png' %}"> Editar imagem </a>
+                {% endif %}
+            </nav>
+        </section>
